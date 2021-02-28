@@ -1,8 +1,13 @@
+using Core;
+using Core.Repositories;
+using DomainServices;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Repository;
 
 namespace API_Sorv
 {
@@ -18,6 +23,16 @@ namespace API_Sorv
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<ApplicationContext>(opt => opt.UseInMemoryDatabase("TestContextApp"));
+            services.AddScoped<ApplicationContext>();
+
+
+            // Services
+            services.AddScoped<IProdutoService, ProdutoService>();
+
+            // Repository
+            services.AddScoped<IProdutoRepository, ProdutoRepository>();
+
 
             services.AddControllers();
         }
