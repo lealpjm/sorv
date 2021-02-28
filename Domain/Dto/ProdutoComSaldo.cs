@@ -6,7 +6,7 @@ namespace Domain.VO
     {
         public string IdentificadorProduto { get; set; }
         public string NomeProduto { get; set; }
-        public TimeSpan Validade { get; set; }
+        public string Validade { get; set; }
         public int Saldo { get; set; }
         public DateTime Data { get; set; }
         public Guid Filial { get; set; }

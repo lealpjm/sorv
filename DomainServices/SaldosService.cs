@@ -18,7 +18,7 @@ namespace DomainServices
 
         public IEnumerable<ProdutoComSaldo> GetAllProductByFilial(Guid filial, DateTime date)
         {
-            return _produtoRepository.Get(x => x.Filial.Id == filial && x.Data == date).Select(x => new ProdutoComSaldo()
+            return _produtoRepository.Get(x => x.Filial.Id == filial && x.Data == date, null, "Filial,Produto").Select(x => new ProdutoComSaldo()
             {
                 IdentificadorProduto = x.Produto.Id,
                 Filial = x.Filial.Id,
@@ -26,7 +26,7 @@ namespace DomainServices
                 Saldo = x.Saldo,
                 NomeFilial = x.Filial.NomeFilial,
                 NomeProduto = x.Produto.Descricao,
-                Validade = x.Produto.TempoValidade
+                Validade = x.Produto.TempoValidade.ToString("hh\\:mm\\:ss")
             });
         }
     }
