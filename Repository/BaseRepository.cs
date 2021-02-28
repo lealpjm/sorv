@@ -64,14 +64,9 @@ namespace Repository
             }
         }
 
-        public T GetByKey(params object[] keys)
+        public T GetByKey(object key)
         {
-            return dbSet.Find(keys);
-        }
-
-        public IEnumerable<T> GetWithRawSql(string query, params object[] parameters)
-        {
-            return dbSet.FromSqlRaw(query, parameters).ToList();
+            return dbSet.Find(key);
         }
 
         public void Insert(T entity)

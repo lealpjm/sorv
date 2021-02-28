@@ -12,9 +12,7 @@ namespace Core.Repositories
         IEnumerable<T> Get(Expression<Func<T, bool>> filter = null,
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
             string includeProperties = "");
-        T GetByKey(object[] keys);
-        IEnumerable<T> GetWithRawSql(string query,
-            params object[] parameters);
+        T GetByKey(object key);
         void Insert(T entity);
         void Update(T entity);
     }
