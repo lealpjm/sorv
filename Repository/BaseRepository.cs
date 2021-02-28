@@ -34,8 +34,7 @@ namespace Repository
         }
 
         public IEnumerable<T> Get(Expression<Func<T, bool>> filter = null,
-            Func<IQueryable<T>,
-            IOrderedQueryable<T>> orderBy = null,
+            Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
             string includeProperties = "")
         {
             IQueryable<T> query = dbSet;

@@ -9,9 +9,7 @@ namespace Core.Repositories
     {
         void Delete(T entity);
         void Delete(object id);
-        IEnumerable<T> Get(Expression<Func<T, bool>> filter = null,
-            Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
-            string includeProperties = "");
+        IEnumerable<T> Get(Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, string includeProperties = "");
         T GetByKey(object key);
         void Insert(T entity);
         void Update(T entity);

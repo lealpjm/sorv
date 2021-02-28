@@ -23,15 +23,16 @@ namespace API_Sorv
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationContext>(opt => opt.UseInMemoryDatabase("TestContextApp"));
+            //services.AddDbContext<ApplicationContext>(opt => opt.UseInMemoryDatabase("TestContextApp"));
+            services.AddDbContext<ApplicationContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("TestContextApp")));
             services.AddScoped<ApplicationContext>();
 
 
             // Services
-            services.AddScoped<IProdutoService, ProdutoService>();
+            services.AddScoped<ISaldosService, SaldosService>();
 
             // Repository
-            services.AddScoped<IProdutoRepository, ProdutoRepository>();
+            services.AddScoped<ISaldosRepository, SaldosRepository>();
 
 
             services.AddControllers();

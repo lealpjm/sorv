@@ -1,6 +1,7 @@
 ﻿using API_Sorv.Model;
+using Domain;
 using Microsoft.EntityFrameworkCore;
-using System;
+using System.Linq;
 
 namespace Repository
 {
@@ -8,24 +9,27 @@ namespace Repository
     {
         public ApplicationContext(DbContextOptions opts) : base(opts)
         {
-            LoadTestData();
         }
 
-        private void LoadTestData()
-        {
-            Produtos.Add(new Produto()
-            {
-                Id = "A0045",
-                Filial = new Guid("{2331F54A-1DBF-4008-8C29-FFA8D2324600}"),
-                Descricao = "Teste Prd 001",
-                Saldo = 250,
-                TempoValidade = TimeSpan.FromHours(4)
-            });
-
-            this.SaveChanges();
-        }
-
+        public DbSet<Saldos> Saldos { get; set; }
+        public DbSet<Movimento> Movimento { get; set; }
+        public DbSet<Funcionario> Funcionario { get; set; }
+        public DbSet<Filial> Filiais { get; set; }
         public DbSet<Produto> Produtos { get; set; }
+
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            var cascadeFKs = modelBuilder.Model.GetEntityTypes()
+               .SelectMany(t => t.GetForeignKeys())
+               .Where(fk => !fk.IsOwnership && fk.DeleteBehavior == DeleteBehavior.Cascade);
+
+            foreach (var fk in cascadeFKs)
+                fk.DeleteBehavior = DeleteBehavior.NoAction;
+
+        }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
